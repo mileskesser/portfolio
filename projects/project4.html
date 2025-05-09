@@ -236,6 +236,37 @@
       endScreen.classList.add("visible");
     }
 
+    // Touch and Mouse Event Listeners
+    let isDragging = false;
+
+    function startDrag(e) {
+      e.preventDefault();
+      isDragging = true;
+      const touchX = e.touches ? e.touches[0].clientX : e.clientX;
+      player.x = touchX;
+    }
+
+    function dragMove(e) {
+      if (isDragging) {
+        const touchX = e.touches ? e.touches[0].clientX : e.clientX;
+        player.x = touchX;
+      }
+    }
+
+    function stopDrag() {
+      isDragging = false;
+    }
+
+    // Mouse events
+    canvas.addEventListener("mousedown", startDrag);
+    canvas.addEventListener("mousemove", dragMove);
+    canvas.addEventListener("mouseup", stopDrag);
+
+    // Touch events
+    canvas.addEventListener("touchstart", startDrag);
+    canvas.addEventListener("touchmove", dragMove);
+    canvas.addEventListener("touchend", stopDrag);
+
     document.getElementById("restartButton").addEventListener("click", () => {
       gameOver = false;
       startTime = Date.now();
