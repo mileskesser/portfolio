@@ -4,13 +4,11 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Budget Visualizer</title>
-  <!-- Chart.js Library -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script> <!-- Adding DataLabels Plugin -->
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels"></script> 
   <style>
-    /* Apply a consistent font family across the entire page */
     body, textarea, button {
-      font-family: 'Arial', sans-serif; /* Setting Arial as the font for all elements */
+      font-family: 'Arial', sans-serif; 
       margin: 0;
       padding: 0;
       background-color: #fff;
@@ -19,46 +17,41 @@
 
     textarea
     {
-      font-family: 'Arial', sans-serif; /* Setting Arial as the font for all elements */
+      font-family: 'Arial', sans-serif; 
       margin: 0;
       padding: 0;
       background-color: #f4f4f9;
       text-align: center;
     }
 
-    /* Centering the container and making sure it shares the same background color */
     .container {
       max-width: 900px;
       margin: 20px auto;
       padding: 20px;
-      background-color: white; /* Set background color for the entire container */
+      background-color: white; 
       border-radius: 8px;
       
     }
 
-    /* New style for the heading and paragraph to set their background to white */
     .header-content {
-      background-color: white; /* Set background to white */
+      background-color: white; 
       padding: 20px;
       margin-bottom: 20px;
-      border-radius: 8px; /* Optional: round the corners of the header */
+      border-radius: 8px; 
       
     }
 
-    /* Heading styles */
     h1 {
       color: #333;
       font-size: 36px;
       margin-bottom: 10px;
     }
 
-    /* Paragraph styles */
     p {
       font-size: 16px;
       color: #555;
     }
 
-    /* Center the input elements (textarea, button, and canvas) */
     .form-container {
       display: flex;
       flex-direction: column;
@@ -66,7 +59,6 @@
       justify-content: center;
     }
 
-    /* Textarea for budget input - font consistency and left-alignment */
     textarea {
       width: 100%;
       height: 150px;
@@ -75,12 +67,11 @@
       border-radius: 5px;
       border: 1px solid #ccc;
       margin-bottom: 20px;
-      font-family: 'Arial', sans-serif; /* Ensure the font matches the body */
+      font-family: 'Arial', sans-serif; 
       resize: none;
-      text-align: left; /* Ensure text inside the textarea is left-aligned */
+      text-align: left; 
     }
 
-    /* Button styles */
     button {
       padding: 10px 20px;
       font-size: 16px;
@@ -95,7 +86,6 @@
       background-color: #45a049;
     }
 
-    /* Canvas for the pie chart */
     canvas {
       margin-top: 30px;
       max-width: 100%;
@@ -106,7 +96,7 @@
 <body>
 
   <div class="container">
-    <!-- Header content with white background -->
+
     <div class="header-content">
       <h1>Budget Visualizer</h1>
       <p>Enter your budget categories and amounts in the following format:</p>
@@ -118,19 +108,17 @@
       </pre>
     </div>
     
-    <!-- Form container to center the input elements -->
     <div class="form-container">
       <textarea id="budgetInput" placeholder="Enter your budget here..."></textarea>
       <button onclick="generateChart()">Generate Pie Chart</button>
     </div>
     
-    <!-- Pie chart canvas -->
     <canvas id="budgetChart"></canvas>
   </div>
 
   <script>
-    // Function to parse the budget input text
-    function parseBudgetInput(inputText) {
+
+function parseBudgetInput(inputText) {
       const budget = {};
       const lines = inputText.trim().split('\n');
       lines.forEach(line => {
@@ -139,7 +127,7 @@
           const category = parts.slice(0, -1).join(' ');
           const amount = parseFloat(parts[parts.length - 1].replace('$', '').replace(',', ''));
           if (!isNaN(amount)) {
-            // Accumulate amounts if the category appears more than once
+
             if (budget[category]) {
               budget[category] += amount;
             } else {
@@ -151,7 +139,6 @@
       return budget;
     }
 
-    // Function to generate the pie chart
     function generateChart() {
       const inputText = document.getElementById('budgetInput').value;
       const budgetData = parseBudgetInput(inputText);
@@ -164,15 +151,12 @@
       const labels = Object.keys(budgetData);
       const data = Object.values(budgetData);
 
-      // Get the context of the canvas
       const ctx = document.getElementById('budgetChart').getContext('2d');
 
-      // Check if a chart already exists
       if (window.chartInstance) {
-        window.chartInstance.destroy(); // Destroy the previous chart
+        window.chartInstance.destroy(); 
       }
 
-      // Create the new pie chart
       window.chartInstance = new Chart(ctx, {
         type: 'pie',
         data: {
@@ -202,7 +186,7 @@
               formatter: (value, ctx) => {
                 const total = ctx.dataset.data.reduce((a, b) => a + b, 0);
                 const percentage = (value / total) * 100;
-                return `${percentage.toFixed(1)}%`; // Display the percentage
+                return `${percentage.toFixed(1)}%`; 
               },
               color: '#fff',
               font: {

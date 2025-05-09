@@ -78,23 +78,21 @@
   </div>
 
   <script>
-    const API_KEY = 'AIzaSyBGIDQxyT1Fgj-kTQUwFyxunyixyNUV0Ng';  // Your Google Vision API Key
+    const API_KEY = 'AIzaSyBGIDQxyT1Fgj-kTQUwFyxunyixyNUV0Ng'; 
 
     document.getElementById('imageInput').addEventListener('change', async (event) => {
       const file = event.target.files[0];
       if (!file) return;
 
-      // Display the uploaded image
       const imgElement = document.getElementById('uploadedImage');
       imgElement.src = URL.createObjectURL(file);
       imgElement.style.display = 'block';
 
-      // Read the image file and convert to base64
       const reader = new FileReader();
       reader.onloadend = async () => {
-        const base64Image = reader.result.split(',')[1];  // Get base64 string from image
-        const labels = await classifyImage(base64Image);  // Classify the image using Google Vision API
-        displayResult(labels);  // Display the result on the page
+        const base64Image = reader.result.split(',')[1];  
+        const labels = await classifyImage(base64Image);  
+        displayResult(labels); 
       };
       reader.readAsDataURL(file);
     });
@@ -111,7 +109,7 @@
       };
 
       try {
-        // Log the request body to see what data is being sent
+
         console.log('Request body:', JSON.stringify(requestBody));
 
         const response = await fetch(url, {
@@ -122,18 +120,16 @@
 
         const data = await response.json();
 
-        // Log the full API response for debugging
         console.log('API Response:', data);
 
         if (data.error) {
-          console.error('API Error:', data.error);  // Log any error from the API
+          console.error('API Error:', data.error);  
           return [];
         }
 
-        // Return label annotations if found
         return data.responses[0]?.labelAnnotations || [];
       } catch (err) {
-        console.error('Error in Vision API request:', err);  // Log any network or request errors
+        console.error('Error in Vision API request:', err);  
         return [];
       }
     }
@@ -141,10 +137,10 @@
     function displayResult(labels) {
       const resultDiv = document.getElementById('result');
       if (labels.length > 0) {
-        // Sort the labels by confidence score in descending order
+
         const topLabels = labels
-          .sort((a, b) => b.score - a.score) // Sort by score (descending)
-          .slice(0, 3); // Get top 3 labels
+          .sort((a, b) => b.score - a.score) 
+          .slice(0, 3); 
 
         resultDiv.innerHTML = 'Top 3 Identifications:<br>';
 

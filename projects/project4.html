@@ -92,9 +92,9 @@
     };
 
     let gameOver = false;
-    let startTime = Date.now(); // Start time for score tracking
-    let alienTimer = Date.now(); // Timer for adding new aliens
-    let alienSpeedIncrement = 1.5; // Speed increment for each new alien
+    let startTime = Date.now(); 
+    let alienTimer = Date.now(); 
+    let alienSpeedIncrement = 1.5; 
 
     function getRandomColor() {
       return colors[Math.floor(Math.random() * colors.length)];
@@ -104,24 +104,24 @@
       ctx.strokeStyle = player.color;
       ctx.lineWidth = 3;
 
-      // Draw head
+      // head
       ctx.beginPath();
       ctx.arc(player.x, player.y, 15, 0, Math.PI * 2);
       ctx.stroke();
 
-      // Draw body
+      // body
       ctx.beginPath();
       ctx.moveTo(player.x, player.y + 15);
       ctx.lineTo(player.x, player.y + 45);
       ctx.stroke();
 
-      // Draw arms
+      // arms
       ctx.beginPath();
       ctx.moveTo(player.x - 15, player.y + 25);
       ctx.lineTo(player.x + 15, player.y + 25);
       ctx.stroke();
 
-      // Draw legs
+      // legs
       ctx.beginPath();
       ctx.moveTo(player.x, player.y + 45);
       ctx.lineTo(player.x - 10, player.y + 65);
@@ -161,18 +161,18 @@
     function updateAliens() {
       const now = Date.now();
 
-      if (now - alienTimer >= 5000) { // Add a new alien every 5 seconds
+      if (now - alienTimer >= 5000) { // new alien every 5 seconds
         const newAlien = {
           x: Math.random() * (SCREEN_WIDTH - 100),
           y: Math.random() * 100,
-          speed: aliens[aliens.length - 1].speed + alienSpeedIncrement, // Faster speed
+          speed: aliens[aliens.length - 1].speed + alienSpeedIncrement, // faster speed
           direction: Math.random() > 0.5 ? 1 : -1,
           lasers: [],
           color: getRandomColor(),
-          fireRate: Math.random() * 0.05 + 0.03 // More frequent laser firing
+          fireRate: Math.random() * 0.05 + 0.03 // more lasers
         };
         aliens.push(newAlien);
-        alienTimer = now; // Reset timer
+        alienTimer = now; // reset timer
       }
 
       aliens.forEach((alien) => {
@@ -236,7 +236,6 @@
       endScreen.classList.add("visible");
     }
 
-    // Touch and Mouse Event Listeners
     let isDragging = false;
 
     function startDrag(e) {
@@ -257,12 +256,12 @@
       isDragging = false;
     }
 
-    // Mouse events
+    // mouse 
     canvas.addEventListener("mousedown", startDrag);
     canvas.addEventListener("mousemove", dragMove);
     canvas.addEventListener("mouseup", stopDrag);
 
-    // Touch events
+    // touch 
     canvas.addEventListener("touchstart", startDrag);
     canvas.addEventListener("touchmove", dragMove);
     canvas.addEventListener("touchend", stopDrag);

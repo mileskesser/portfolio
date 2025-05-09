@@ -115,7 +115,6 @@
   <h1>Find the Ace of Hearts</h1>
   <div id="game"></div>
 
-  <!-- Popup Modal -->
   <div id="popup">
     <div>Congratulations! You win!</div>
     <button onclick="startGame()">Play Again</button>
@@ -209,18 +208,18 @@
         card.style.transform = `translate(${col * 120}px, ${row * 180}px)`;
       });
 
-      // Start with all cards face down
+      // start with cards face down
       cards.forEach(card => card.classList.remove('flip'));
 
-      // Show ace (card 0) face-up
+      // flip over ace 
       setTimeout(() => {
         cards[correctIndex].classList.add('flip');
 
-        // Flip back down after 1.2s, then shuffle
+        // flip ace back over 
         setTimeout(() => {
           cards[correctIndex].classList.remove('flip');
 
-          // Wait briefly before shuffling
+          // pause
           setTimeout(() => {
             shufflePositions(4);
           }, 300);
