@@ -3,24 +3,233 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Project 1</title>
-  <link rel="stylesheet" href="../assets/style.css" />
+  <title>Card Shuffle Game</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      background-image: url('background-image.jpg');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      margin: 0;
+      padding: 20px;
+    }
+
+    h1 {
+      margin-bottom: 10px;
+      color: white;
+      text-shadow: 0 0 5px black;
+    }
+
+    #game {
+      display: flex;
+      flex-wrap: wrap;
+      width: 360px;
+      margin: 40px auto;
+      gap: 20px;
+      position: relative;
+    }
+
+    .card {
+      width: 100px;
+      height: 150px;
+      perspective: 1000px;
+      position: absolute;
+      transition: transform 0.6s ease;
+    }
+
+    .card-inner {
+      width: 100%;
+      height: 100%;
+      position: relative;
+      transform-style: preserve-3d;
+      transition: transform 0.6s;
+    }
+
+    .flip .card-inner {
+      transform: rotateY(180deg);
+    }
+
+    .card-front,
+    .card-back {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      backface-visibility: hidden;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      font-weight: bold;
+      background-size: cover;
+      background-position: center;
+    }
+
+    .card-front {
+      transform: rotateY(180deg);
+    }
+
+    .card-back {
+      background-image: url('card-back.jpg');
+      color: white;
+    }
+
+    .correct .card-back,
+    .wrong .card-back {
+      background-image: none;
+    }
+
+    #popup {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: white;
+      padding: 30px 40px;
+      border-radius: 12px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.5);
+      font-size: 1.2rem;
+      display: none;
+      z-index: 1000;
+    }
+
+    #popup button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      font-size: 1rem;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+
+    #popup button:hover {
+      background-color: #45a049;
+    }
+  </style>
 </head>
 <body>
-  <header>
-    <nav class="navbar">
-      <div class="logo">My Portfolio</div>
-      <ul class="nav-links">
-        <li><a href="../index.html">Home</a></li>
-        <li><a href="../about.html">About</a></li>
-        <li><a href="../resume.pdf" target="_blank">Resume</a></li>
-        <li><a href="https://linkedin.com/in/YOUR_LINKEDIN" target="_blank">LinkedIn</a></li>
-      </ul>
-    </nav>
-  </header>
-  <main>
-    <h1>Project 1</h1>
-    <p>Details coming soon.</p>
-  </main>
+  <h1>Find the Ace of Hearts</h1>
+  <div id="game"></div>
+
+  <!-- Popup Modal -->
+  <div id="popup">
+    <div>Congratulations! You win!</div>
+    <button onclick="startGame()">Play Again</button>
+  </div>
+
+  <script>
+    const gameContainer = document.getElementById('game');
+    const popup = document.getElementById('popup');
+    let cards = [];
+    let correctIndex = 0;
+
+    const cardImages = [
+      'image1.jpg', 'image2.jpg', 'image3.jpg', 'image4.jpg', 'image5.jpg', 'image6.jpg'
+    ];
+
+    function createCard(index) {
+      const card = document.createElement('div');
+      card.className = 'card';
+      card.dataset.index = index;
+
+      const inner = document.createElement('div');
+      inner.className = 'card-inner';
+
+      const front = document.createElement('div');
+      front.className = 'card-front';
+      front.style.backgroundImage = `url('${cardImages[index]}')`;
+
+      const back = document.createElement('div');
+      back.className = 'card-back';
+
+      inner.appendChild(front);
+      inner.appendChild(back);
+      card.appendChild(inner);
+      card.addEventListener('click', handleGuess);
+      return card;
+    }
+
+    function handleGuess(e) {
+      const selected = parseInt(e.currentTarget.dataset.index);
+      const clickedCard = e.currentTarget;
+
+      clickedCard.classList.add('flip');
+
+      if (selected === correctIndex) {
+        clickedCard.classList.add('correct');
+        popup.style.display = 'block';
+        cards.forEach(card => card.removeEventListener('click', handleGuess));
+      } else {
+        clickedCard.classList.add('wrong');
+        cards.forEach(card => card.removeEventListener('click', handleGuess));
+
+        setTimeout(() => {
+          clickedCard.classList.remove('flip');
+        }, 1000);
+
+        setTimeout(() => {
+          startGame();
+        }, 1600);
+      }
+    }
+
+    function shufflePositions(times) {
+      if (times <= 0) return;
+
+      const positions = Array.from({ length: 6 }, (_, i) => i);
+      for (let i = positions.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [positions[i], positions[j]] = [positions[j], positions[i]];
+      }
+
+      cards.forEach((card, i) => {
+        const row = Math.floor(positions[i] / 3);
+        const col = positions[i] % 3;
+        card.style.transition = `transform 0.6s ease`;
+        card.style.transform = `translate(${col * 120}px, ${row * 180}px)`;
+      });
+
+      setTimeout(() => shufflePositions(times - 1), 600);
+    }
+
+    function startGame() {
+      gameContainer.innerHTML = '';
+      popup.style.display = 'none';
+      correctIndex = 0;
+
+      cards = Array.from({ length: 6 }, (_, i) => createCard(i));
+      cards.forEach((card, i) => {
+        gameContainer.appendChild(card);
+        const row = Math.floor(i / 3);
+        const col = i % 3;
+        card.style.transform = `translate(${col * 120}px, ${row * 180}px)`;
+      });
+
+      // Start with all cards face down
+      cards.forEach(card => card.classList.remove('flip'));
+
+      // Show ace (card 0) face-up
+      setTimeout(() => {
+        cards[correctIndex].classList.add('flip');
+
+        // Flip back down after 1.2s, then shuffle
+        setTimeout(() => {
+          cards[correctIndex].classList.remove('flip');
+
+          // Wait briefly before shuffling
+          setTimeout(() => {
+            shufflePositions(4);
+          }, 300);
+
+        }, 1200);
+      }, 300);
+    }
+
+    startGame();
+  </script>
 </body>
 </html>

@@ -5,6 +5,62 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>About Me</title>
   <link rel="stylesheet" href="assets/style.css" />
+  <style>
+    .about-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      padding: 2rem;
+      gap: 2rem;
+      max-width: 1100px;
+      margin: auto;
+    }
+
+    .about-photo {
+      flex: 1 1 300px;
+      text-align: center;
+    }
+
+    .about-photo img {
+      max-width: 100%;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    .about-text {
+      flex: 2 1 500px;
+    }
+
+    .about-text h2,
+    .about-text h3,
+    .about-text p,
+    .about-text ul,
+    .contact-info {
+      text-align: left;
+    }
+
+    .info-block {
+      margin-top: 1.5rem;
+    }
+
+    ul {
+      padding-left: 1.2rem;
+    }
+
+    a {
+      color: #0077b5;
+    }
+
+    .contact-info {
+      margin-top: 1rem;
+      font-size: 0.95rem;
+    }
+
+    main h1 {
+      text-align: center;
+      margin-top: 2rem;
+    }
+  </style>
 </head>
 <body>
   <header>
@@ -14,13 +70,59 @@
         <li><a href="index.html">Home</a></li>
         <li><a href="about.html">About</a></li>
         <li><a href="resume.pdf" target="_blank">Resume</a></li>
-        <li><a href="https://linkedin.com/in/YOUR_LINKEDIN" target="_blank">LinkedIn</a></li>
+        <li><a href="https://linkedin.com/in/miles-kesser" target="_blank">LinkedIn</a></li>
       </ul>
     </nav>
   </header>
+
   <main>
     <h1>About Me</h1>
-    <p>This is the about page. Write about your background, goals, and interests here.</p>
+    <section class="about-container">
+      <div class="about-photo">
+        <img src="assets/miles-photo.jpg" alt="Miles Kesser" />
+      </div>
+
+      <div class="about-text">
+        <h2>Hi, I'm Miles Kesser</h2>
+        <p>
+          I’m a Computer Science graduate from Oregon State University based in Portland, OR.
+          I’m passionate about software development and love designing impactful, innovative solutions. 
+          With a foundation in full-stack development and experience in various industries, I bring a unique blend of technical expertise and interpersonal skills to the table.
+        </p>
+
+        <div class="info-block">
+          <h3>Skills</h3>
+          <ul>
+            <li>Python, Java, JavaScript, C/C++</li>
+            <li>Full-Stack Web & Mobile App Development</li>
+            <li>Git & Version Control, Debugging, Agile Methodologies</li>
+          </ul>
+        </div>
+
+        <div class="info-block">
+          <h3>Background</h3>
+          <p>
+            Before diving into software, I spent several years working in sales and hospitality.
+            These roles sharpened my communication, adaptability, and teamwork skills—
+            all of which I now bring into the tech space.
+          </p>
+        </div>
+
+        <div class="info-block">
+          <h3>More About Me</h3>
+          <p>
+            Outside of coding, I enjoy <em>[add hobbies like hiking, photography, gaming, etc.]</em>.
+            I'm always open to new opportunities and collaborations—don’t hesitate to connect!
+          </p>
+        </div>
+
+        <div class="contact-info">
+          <p><strong>Email:</strong> mileskesser@icloud.com</p>
+          <p><strong>Phone:</strong> (707) 293-8565</p>
+          <p><strong>LinkedIn:</strong> <a href="https://linkedin.com/in/miles-kesser" target="_blank">miles-kesser</a></p>
+        </div>
+      </div>
+    </section>
   </main>
 </body>
 </html>
