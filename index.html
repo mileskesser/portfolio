@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title></title>
+  <title>Portfolio</title>
 
   <style>
     body {
@@ -63,9 +63,11 @@
 
     .icon-box {
       display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
-      height: 180px;
+      padding: 1rem;
+      height: 220px;
       text-decoration: none;
       color: #333;
       font-size: 1.2rem;
@@ -78,6 +80,13 @@
     .icon-box:hover {
       transform: translateY(-4px);
       box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+    }
+
+    .icon-box img {
+      width: 60px;
+      height: 60px;
+      object-fit: contain;
+      margin-bottom: 0.5rem;
     }
 
     .icon-box:nth-child(1) { background-color: #ffefef; } 
@@ -103,12 +112,30 @@
   <main>
     <h1>Welcome to My Portfolio</h1>
     <div class="project-icons">
-      <a href="projects/project1.html" class="icon-box">Card Guessing Game</a>
-      <a href="projects/project2.html" target="_blank" class="icon-box">Budget Visualizer</a>
-      <a href="projects/project3.html" class="icon-box">Image Identifier</a>
-      <a href="projects/project4.html" class="icon-box">Alien Invasion Game</a>
-      <a href="https://youtu.be/vrQHTmek0sU" class="icon-box">Kotlin Mobile App Demo</a>
-      <a href="https://youtu.be/ku4RZlCf_HU" class="icon-box">OpenGL Animation</a>
+      <a href="projects/project1.html" class="icon-box">
+        <img src="images/card.png" alt="Card Game Icon">
+        Card Guessing Game
+      </a>
+      <a href="projects/project2.html" target="_blank" class="icon-box">
+        <img src="images/budget.png" alt="Budget Visualizer Icon">
+        Budget Visualizer
+      </a>
+      <a href="projects/project3.html" class="icon-box">
+        <img src="images/image.png" alt="Image Identifier Icon">
+        Image Identifier
+      </a>
+      <a href="projects/project4.html" class="icon-box">
+        <img src="images/alien.png" alt="Alien Game Icon">
+        Alien Invasion Game
+      </a>
+      <a href="https://youtu.be/vrQHTmek0sU" class="icon-box">
+        <img src="images/kotlin.png" alt="Kotlin App Icon">
+        Kotlin Mobile App Demo
+      </a>
+      <a href="https://youtu.be/ku4RZlCf_HU" class="icon-box">
+        <img src="images/opengl.png" alt="OpenGL Icon">
+        OpenGL Animation
+      </a>
     </div>
   </main>
 </body>
